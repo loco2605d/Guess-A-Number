@@ -1,0 +1,247 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Recreates the image's dual background: Soft blue geometric top + Wooden tabletop base */
+    background: 
+        linear-gradient(to top, rgba(161, 131, 99, 0.8) 0%, rgba(216, 191, 159, 0.9) 15%, transparent 15.5%),
+        linear-gradient(135deg, #e4eff9 0%, #d5e4f5 50%, #cbdcf0 100%);
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    position: relative;
+}
+
+/* Recreates the subtle floating geometric diamond shapes from the picture */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: 
+        radial-gradient(circle at 15% 30%, rgba(35, 90, 166, 0.04) 40px, transparent 41px),
+        radial-gradient(circle at 85% 65%, rgba(35, 90, 166, 0.05) 50px, transparent 51px),
+        radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.04) 30px, transparent 31px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.mainContainer {
+    width: 100%;
+    max-width: 460px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    z-index: 1; /* Sits above the background effects */
+}
+
+.container {
+    position: relative; 
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(15, 34, 77, 0.2), 0 5px 15px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+/* Win overlay matching the design specs */
+.win {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    height: 80%;
+    width: 100%;
+    font-size: 2.5rem; 
+    font-weight: bold;
+    color: #1d4ed8;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    text-align: center;
+}
+
+.winshow {
+    display: flex !important;
+}
+
+/* Header styling */
+.first {
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    background-color: #235aa6; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Instruction banner styling */
+.second {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #334155;
+    text-align: left;
+    padding: 20px 25px;
+    background-color: #edf4fc;
+    border-bottom: 1px solid #e2e8f0;
+    line-height: 1.4;
+}
+
+.con_second {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 20px;
+    background-color: #ffffff;
+}
+
+h2 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e293b;
+    text-transform: uppercase;
+    text-align: left;
+    margin-bottom: -5px;
+}
+
+/* Input & Guess row */
+.third {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+}
+
+.third input {
+    flex: 1;
+    min-width: 0; 
+    height: 54px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1e293b;
+    border-radius: 12px;
+    border: 2px solid #cbd5e1;
+    padding: 5px 15px;
+    text-align: left;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.third input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.third button {
+    width: 140px;
+    height: 54px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    border-radius: 12px;
+    background-color: #2557a7;
+    color: white;
+    border: none;
+    border-bottom: 4px solid #163b75; 
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.1s, border-bottom-width 0.1s;
+}
+
+.third button:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+}
+
+/* Info feedback panel */
+.last {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #475569;
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+}
+
+/* Range Container / Bottom Actions Layout */
+.range {
+    color: #ef4444; 
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.count {
+    align-self: flex-end;
+    margin-top: -25px; 
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Action Container Layout */
+.reset {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Reset Button spanning cleanly */
+.resetbtn {
+    height: 50px;
+    width: 100%;
+    max-width: 200px; 
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #f28c28; 
+    color: white;
+    border-radius: 12px;
+    border: none;
+    border-bottom: 4px solid #b86214; 
+    cursor: pointer;
+    transition: transform 0.1s, border-bottom-width 0.1s;
+}
+
+.resetbtn:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+}
+
+/* Responsiveness tweaks */
+@media (max-width: 400px) {
+    .con_second {
+        padding: 15px;
+    }
+    .third input {
+        font-size: 1.3rem;
+    }
+    .third button {
+        width: 110px;
+    }
+    .count {
+        align-self: flex-start;
+        margin-top: 0;
+    }
+    .resetbtn {
+        max-width: 100%; 
+    }
+}
