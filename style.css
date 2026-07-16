@@ -172,9 +172,12 @@ h2 {
     cursor: not-allowed;
 }
 
+/* .last is now a row: hint text on the left, guess count on the right */
 .last {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
     padding: 15px 20px;
     border-radius: 12px;
@@ -189,13 +192,13 @@ h2 {
     color: #ef4444;
     font-weight: 700;
     font-size: 1.1rem;
+    flex: 1;
 }
 
 .count {
-    align-self: flex-end;
-    margin-top: -25px;
     font-weight: 700;
     color: #1e293b;
+    white-space: nowrap;
 }
 
 .reset {
@@ -227,7 +230,11 @@ h2 {
     border-bottom-width: 2px;
 }
 
+/* Hint button: relative + overflow hidden lets the fill overlay animate inside it */
 .hintbtn {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
     height: 50px;
     width: 100%;
     max-width: 200px;
@@ -251,6 +258,31 @@ h2 {
 .hintbtn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.hintbtn span {
+    position: relative;
+    z-index: 2;
+}
+
+.hintbtn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background-color: #047857;
+    z-index: 1;
+}
+
+.hintbtn.filling::after {
+    animation: fillHint 2.5s linear forwards;
+}
+
+@keyframes fillHint {
+    from { width: 0%; }
+    to   { width: 100%; }
 }
 
 @media (max-width: 600px) {
