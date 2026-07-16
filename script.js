@@ -61,7 +61,17 @@ hintbtn.addEventListener("click", () => {
   const lower = Math.floor((randomNumber - 1) / 10) * 10;
   const upper = lower + 10;
   rangeBox.innerText = `Number is between ${lower} and ${upper}`;
+
+  // trigger the fill animation
+  hintbtn.classList.add("filling");
   hintbtn.disabled = true; // one hint per round
+
+  // hide the hint text after 3 seconds, but only if nothing else changed it
+  setTimeout(() => {
+    if (rangeBox.innerText.startsWith("Number is between")) {
+      rangeBox.innerText = "Good Luck!";
+    }
+  }, 3000);
 });
 
 resetbtn.addEventListener("click", () => {
@@ -71,6 +81,7 @@ resetbtn.addEventListener("click", () => {
   btn.disabled = false;
   guessNum.disabled = false;
   hintbtn.disabled = false;
+  hintbtn.classList.remove("filling"); // reset fill animation for next round
   countBox.innerText = `Guesses:${click}`;
   rangeBox.innerText = "Good Luck!";
   winScreen.classList.remove("winshow");
